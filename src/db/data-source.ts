@@ -1,6 +1,8 @@
 import { DataSource } from 'typeorm';
 import * as pgtools from 'pgtools';
 import { User } from '../models/user';
+import { DirectMessage } from '../models/dm';
+import { Message } from '../models/messages';
 
 const config = {
   type: 'postgres' as const,
@@ -9,7 +11,7 @@ const config = {
   username: 'postgres',
   password: 'postgres',
   database: 'Zealous',
-  entities: [User],
+  entities: [User, DirectMessage, Message],
   migrations: ['src/migrations/**/*.ts'],
   synchronize: false,
   logging: true,
@@ -34,5 +36,6 @@ export const initializeDataSource = async () => {
   }
 
   await AppDataSource.initialize();
+  console.log("hey the source has been initialised")
   console.log("Data Source has been initialized!");
 };

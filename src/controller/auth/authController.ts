@@ -3,14 +3,14 @@ import * as authServices from '../../services/user';
 import { LoginRequest, SignUpRequest } from '../../entities/user.entity';
 
 // Signup controller
-export const signup = async (payload: SignUpRequest):Promise<any> => {
+export const signup = async (req: Request, res: Response): Promise<any> => {
     try {
-        console.log("this is the payload", payload.email);
+        const payload: SignUpRequest = req.body;
         const response = await authServices.signUp(payload);
-        return response;
-    } catch (error) {
+        return res.json(response);
+    } catch (error: any) {
         console.error(error);
-        throw error;
+        return res.status(500).json({ error: error.toString() });
     }
 };
 
